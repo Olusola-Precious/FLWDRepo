@@ -1,0 +1,95 @@
+{% extends 'baseHtml.html' %} {% load static %} {% static 'img/products' as productUrl %}{% block title %}Cart{% endblock %} {% block navigation %}
+
+<li><a href="{% url 'home' %}">Home</a></li>
+<li><a href="{% url 'store' %}">Shop</a></li>
+<li class="active"><a href="{% url 'cart' %}">Cart</a></li>
+<li><a href="{% url 'checkout' %}">Checkout</a></li>
+<li><a href="#">Contact</a></li>
+
+{% endblock %} {% block content %}
+<div class="container mb-4">
+    <h1>Cart(1 Item)</h1>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="items ft-products-list" style="">
+                <div class="header">
+                    <div class="item" style="">Item</div>
+                    <div class="quantity">Quantity</div>
+                    <div class="unit-price">Unit Price</div>
+                    <div class="subtotal">Subtotal</div>
+                </div>
+                {% for product in carts %}
+                <form class="product ft-product" action="/cart/updatequantity/" method="POST">
+                    <div class="ln">
+                        <div class="image ft-product-image " style="">
+                            <a href="#" style="">
+                                <img class="lazy image -loaded" width="60" height="60" src="{{product.main_image}}" alt="{{product.name}}" style="">
+                            </a>
+                        </div>
+                        <div class="item" style="">
+                            <div class="seller -mbs ft-product-seller " ft-data-seller="" style="">
+                                {{product.category_name}}
+                            </div>
+                            <a href="#" class="name -mbs -inline-block ft-product-name " style="">{{product.name}}</a>
+                            <div class="acts mt-5" style="">
+                                <a href="#" class="btn btn-info -link -mrxxxl" style="">
+                                    <i class=" osh-font-fav-outline" style=""></i> <span class="label " style="">Move to Saved Items</span>
+                                </a>
+                                <a class="btn btn-info -link js-remove" href="#" style="">
+                                    <i class="osh-font-trash" style=""></i> <span class="label" style="">Remove</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="quantity" style="">
+                            <label class="unit-quantity ft-product-quantity">{{product.amount}}</label>
+                        </div>
+                        <div class="unit-price ft-product-unit-price" style="">
+                            <span class="current">
+                            <span data-currency-iso="NGN">₦</span>
+                            <span dir="ltr" data-price="2400">{{product.Price}}</span>
+                            </span>
+
+                        </div>
+                        <div class="subtotal ft-product-subtotal-price" style="">
+                            <span data-currency-iso="NGN">₦</span>
+                            <span dir="ltr" data-price="2400">{{product.Price}}</span>
+                        </div>
+                    </div>
+                </form>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="resume -mtxxl -mbxs">
+                <div class="row total ft-total"><label>Total:</label>
+                    <div class="ft-total-panel"><span data-currency-iso="NGN">₦</span> <span dir="ltr" data-price="6399">6,399</span> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="shipping -mrxxl -mbm">Delivery fee not included yet</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="shipping -mrxxl -mbxxl" style="">International Shipping and Customs fee not included yet (NON-REFUNDABLE in case of a return)</div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="summary-footer">
+            <div class="container" style="">
+                <a href="#" class="osh-btn -primary -shadow continue-shopping"> <span class="label ">Continue Shopping</span> </a>
+                <a href="{% url 'checkout' %}" class="osh-btn -primary -shadow ft-go-to-checkout"> <span class="label ">Proceed to Checkout</span> </a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

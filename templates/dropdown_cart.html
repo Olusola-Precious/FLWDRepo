@@ -1,0 +1,12 @@
+{% load static %} {% for each in carts %}
+<div class="product-widget">
+    <div class="product-img">
+        <img src="{{each.main_image}}" alt="">
+    </div>
+    <div class="product-body">
+        <h3 class="product-name"><a href="#">{{each.name}}</a></h3>
+        <h4 class="product-price"><span class="qty">{{each.amount}}x</span>$980.00</h4>
+    </div>
+    <button class="delete"><i class="fa fa-close"></i></button>
+</div>
+{% endfor %}

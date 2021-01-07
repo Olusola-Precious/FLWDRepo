@@ -1,0 +1,194 @@
+{
+    "Category_tb": {
+        "1": {
+            "id": 1,
+            "thum_img": "static/img/category/shop03.png",
+            "name": "Accessories",
+            "merchants_id": "1",
+            "date_added": ""
+        },
+        "2": {
+            "id": 2,
+            "thum_img": "static/img/category/shop01.png",
+            "name": "Laptops",
+            "merchants_id": "1",
+            "date_added": ""
+        },
+        "3": {
+            "id": 3,
+            "thum_img": "static/img/category/shop04.png",
+            "name": "Smartphones",
+            "merchants_id": "1",
+            "date_added": ""
+        },
+        "4": {
+            "id": 4,
+            "thum_img": "static/img/category/shop02.png",
+            "name": "Cameras",
+            "merchants_id": "1",
+            "date_added": ""
+        }
+
+    },
+
+    "Product_tb": {
+        "1": {
+            "id": 1,
+            "Category_id": 2,
+            "name": "Mac Laptop",
+            "description": "This is a very good Laptop",
+            "main_image": "static/img/products/product01.png",
+            "discount": "$300.00",
+            "Price": "$9800.00",
+            "date_added": ""
+
+        },
+
+        "2": {
+            "id": 2,
+            "Category_id": 1,
+            "name": "Wireless Wires Headphone",
+            "description": "This is a very good Headphone",
+            "main_image": "static/img/products/product02.png",
+            "discount": "$500.00",
+            "Price": "$2800.00",
+            "date_added": ""
+
+        },
+
+        "3": {
+            "id": 3,
+            "Category_id": 2,
+            "name": "IMAC Laptop",
+            "description": "This is a very Good iMac laptop",
+            "main_image": "static/img/products/product03.png",
+            "discount": "$600.00",
+            "Price": "$5800.00",
+            "date_added": ""
+
+        },
+        "4": {
+            "id": 4,
+            "Category_id": 3,
+            "name": "IPAD",
+            "description": "This is a very Good Tablet",
+            "main_image": "static/img/products/product04.png",
+            "discount": "$200.00",
+            "Price": "$900.00",
+            "date_added": ""
+
+        },
+        "5": {
+            "id": 5,
+            "Category_id": 1,
+            "name": "Sound HeadPhone",
+            "description": "This is a resounding HeadPhone",
+            "main_image": "static/img/products/product05.png",
+            "discount": "$100.00",
+            "Price": "$300.00",
+            "date_added": ""
+
+        },
+        "6": {
+            "id": 6,
+            "Category_id": 2,
+            "name": "MSI Laptop",
+            "description": "This is a very Good MSI Laptop",
+            "main_image": "static/img/products/product06.png",
+            "discount": "$20.00",
+            "Price": "$1200.00",
+            "date_added": ""
+
+        },
+        "7": {
+            "id": 7,
+            "Category_id": 3,
+            "name": "Samsung II",
+            "description": "This is a very Good Samsung Phone",
+            "main_image": "static/img/products/product07.png",
+            "discount": "$0.00",
+            "Price": "$200.00",
+            "date_added": ""
+
+        },
+        "8": {
+            "id": 8,
+            "Category_id": 2,
+            "name": "ASUS Laptop",
+            "description": "This is a very Good Laptop For Gaming",
+            "main_image": "static/img/products/product08.png",
+            "discount": "$200.00",
+            "Price": "$1250.00",
+            "date_added": ""
+
+        },
+        "9": {
+            "id": 9,
+            "Category_id": 4,
+            "name": "Rekam Camera",
+            "description": "This is a very Sharp camera",
+            "main_image": "static/img/products/product09.png",
+            "discount": "$210.00",
+            "Price": "$5000.00",
+            "date_added": ""
+
+        }
+    },
+
+    "Customer_tb": {
+        "1": {
+            "id": 1,
+            "name": "Olusola Precious",
+            "date_added": ""
+        }
+    },
+
+
+    "Merchant_tb": {
+        "1": {
+            "id": 1,
+            "name": "Wires",
+            "date_added": ""
+        },
+        "2": {
+            "id": 2,
+            "name": "SAMSUNG",
+            "date_added": ""
+        },
+        "3": {
+            "id": 3,
+            "name": "SONY",
+            "date_added": ""
+        },
+        "4": {
+            "id": 4,
+            "name": "Remka",
+            "date_added": ""
+        }
+    },
+
+    "Cart_tb": {
+        "1": {
+            "id": 1,
+            "customer_id": 1,
+            "product_id": 2,
+            "amount": 1,
+            "date_added": ""
+        },
+        "2": {
+            "id": 2,
+            "customer_id": 1,
+            "product_id": 3,
+            "amount": 3,
+            "date_added": ""
+        },
+        "3": {
+            "id": 3,
+            "customer_id": 1,
+            "product_id": 4,
+            "amount": 2,
+            "date_added": ""
+        }
+    }
+
+}
