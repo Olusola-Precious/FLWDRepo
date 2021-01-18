@@ -1,4 +1,4 @@
- {% extends 'baseHtml.html' %}{% load static %} {% block navigation %}
+ {% extends 'baseHtml.html' %}{% load static %} {% block title %}Checkout{% endblock %}{% block navigation %}
 
 <li><a href="{% url 'home' %}">Home</a></li>
 <li><a href="{% url 'store' %}">Shop</a></li>
@@ -6,26 +6,6 @@
 <li class="active"><a href="{% url 'checkout' %}">Checkout</a></li>
 <li><a href="#">Contact</a></li>
 
-{% endblock %} {% block breadcrumb %}
-<!-- BREADCRUMB -->
-<div id="breadcrumb" class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="breadcrumb-header">Checkout</h3>
-                <ul class="breadcrumb-tree">
-                    <li><a href="#">Home</a></li>
-                    <li class="active">Checkout</li>
-                </ul>
-            </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
-</div>
-<!-- /BREADCRUMB -->
 {% endblock %} {% block content %}
 
 <!-- SECTION -->
@@ -140,14 +120,13 @@
                         <div><strong>TOTAL</strong></div>
                     </div>
                     <div class="order-products">
+                        {% for prod in carts %}
                         <div class="order-col">
-                            <div>1x Product Name Goes Here</div>
-                            <div>$980.00</div>
+                            <div>{{prod.amount}}x {{prod.name}}</div>
+                            <div>${{prod.Price}}</div>
                         </div>
-                        <div class="order-col">
-                            <div>2x Product Name Goes Here</div>
-                            <div>$980.00</div>
-                        </div>
+                        {% endfor %}
+
                     </div>
                     <div class="order-col">
                         <div>Shiping</div>
@@ -155,7 +134,7 @@
                     </div>
                     <div class="order-col">
                         <div><strong>TOTAL</strong></div>
-                        <div><strong class="order-total">$2940.00</strong></div>
+                        <div><strong class="order-total">${{total_price}}</strong></div>
                     </div>
                 </div>
                 <div class="payment-method">
@@ -197,7 +176,7 @@
 								I've read and accept the <a href="#">terms & conditions</a>
 							</label>
                 </div>
-                <a href="#" class="primary-btn order-submit">Place order</a>
+                <a href="{% url 'pay' %}" class="primary-btn order-submit">Place order</a>
             </div>
             <!-- /Order Details -->
         </div>

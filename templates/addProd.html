@@ -1,0 +1,231 @@
+{% extends 'baseHtml.html' %}{% load static %} {% block title %}Add Product{% endblock %} {% block navigation %}
+<li><a href="{% url 'home' %}">Home</a></li>
+<li><a href="{% url 'store' %}">Shop</a></li>
+<li><a href="{% url 'cart' %}">Cart</a></li>
+<li><a href="{% url 'checkout' %}">Checkout</a></li>
+<li><a href="#">Contact</a></li>
+{% endblock %} {% block content %}
+<div class="container">
+    <div class="add_prod">
+        <h1 class="my-5 header text-uppercase">Add Product</h1>
+        <hr>
+        <div class="add_prod_form">
+            <form class="mt-5 ">
+                <fieldset>
+                    <!-- Seller's Name and Category Name-->
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <input class="form-control" id="disabledInput" type="text" placeholder="Seller's name Here" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" id="disabledInput" type="text" placeholder="Store Name here" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Seller's Name and Category Name-->
+
+                    <!-- Name -->
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="pName" class="col-md-2 control-label">Name</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control " id="pName" placeholder="Product's Name">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Name -->
+
+                    <!-- Description and Details-->
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label for="descrip" class="col control-label">Description</label>
+                                <div class="col">
+                                    <textarea class="form-control" id="descrip" rows="3" placeholder="Product's Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="details" class="control-label">Details</label>
+                                <div class="col">
+                                    <textarea class="form-control" id="descrip" rows="3" placeholder="Product's Details"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Description and Details-->
+
+                    <!-- Category Amount and Discount -->
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label" for="category">Category</label>
+                                <select class="form-control" id="category">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label" for="amount">Amount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="text" class="form-control" id="amount" placeholder="Amount">
+                                    <div class="input-group-addon">.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label text-muted" for="amount">Discount (in dollars)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="text" class="form-control" id="amount" placeholder="Discount">
+                                    <div class="input-group-addon">.00</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Category Amount and Discount -->
+                    <hr>
+
+                    <div class="row text-left">
+                        <h4>Upload Product Images </h4>
+                    </div>
+                    <hr>
+
+
+                    <div class="row text-left">
+                        <h5>Product Main Image </h5>
+                    </div>
+
+                    <!-- Product Main Image-->
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="col-lg-12">
+
+                                <div class="form-group text-center">
+                                    <div class="d-block" style="margin-bottom: 20px;">
+                                        <img id="prodMainOutput" src="/static/img/placeholder.png" class="rounded" width="200" height="200" style="border-radius: 10px; border : 2px;" />
+                                        <input type="file" accept="image/gif, image/jpeg, image/png" name="prodMain" id="prodMain" onchange="loadProdMainImgFile(event)" style="display: none;">
+                                        <label for="prodMain" style="cursor: pointer;" class="m-auto btn btn-img">Upload Image</label>
+
+
+                                        <script>
+                                            var loadProdMainImgFile = function(event) {
+                                                var image = document.getElementById('prodMainOutput');
+                                                image.src = URL.createObjectURL(event.target.files[0]);
+                                            };
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /Product Main Image-->
+                    <div class="row text-left">
+                        <h5>Other Product Images </h5>
+                    </div>
+
+                    <!-- Product Other Images-->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="col-lg-12">
+
+                                <div class="form-group text-center">
+                                    <div class="d-block" style="margin-bottom: 20px;">
+                                        <div class="col">
+                                            <img id="prodOutput1" src="/static/img/placeholder.png" class="img-rounded" width="100" height="100" style="border-radius: 10px; border : 2px;" />
+                                            <input type="file" accept="image/gif, image/jpeg, image/png" name="prodImg1" id="prodImg1" onchange="loadProdImg1File(event)" style="display: none;" />
+                                        </div>
+                                        <div class="col">
+                                            <label for="prodImg1" style="cursor: pointer;" class="m-auto btn btn-img">Upload Image</label>
+                                        </div>
+
+
+                                        <script>
+                                            var loadProdImg1File = function(event) {
+                                                var image = document.getElementById('prodOutput1');
+                                                image.src = URL.createObjectURL(event.target.files[0]);
+                                            };
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-lg-12">
+
+                                <div class="form-group text-center">
+                                    <div class="d-block" style="margin-bottom: 20px;">
+                                        <div class="col">
+                                            <img id="prodOutput2" src="/static/img/placeholder.png" class="img-rounded" width="100" height="100" style="border-radius: 10px; border : 2px;" />
+                                            <input type="file" accept="image/gif, image/jpeg, image/png" name="prodImg2" id="prodImg2" onchange="loadProdImg2File(event)" style="display: none;" />
+                                        </div>
+                                        <div class="col">
+                                            <label for="prodImg2" style="cursor: pointer;" class="m-auto btn btn-img">Upload Image</label>
+                                        </div>
+
+
+                                        <script>
+                                            var loadProdImg2File = function(event) {
+                                                var image = document.getElementById('prodOutput2');
+                                                image.src = URL.createObjectURL(event.target.files[0]);
+                                            };
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-lg-12">
+
+                                <div class="form-group text-center">
+                                    <div class="d-block" style="margin-bottom: 20px;">
+                                        <div class="col">
+                                            <img id="prodOutput3" src="/static/img/placeholder.png" class="img-rounded" width="100" height="100" style="border-radius: 10px; border : 2px;" />
+                                            <input type="file" accept="image/gif, image/jpeg, image/png" name="prodImg3" id="prodImg3" onchange="loadProdImg3File(event)" style="display: none;" />
+                                        </div>
+                                        <div class="col">
+                                            <label for="prodImg3" style="cursor: pointer;" class="m-auto btn btn-img">Upload Image</label>
+                                        </div>
+
+
+                                        <script>
+                                            var loadProdImg3File = function(event) {
+                                                var image = document.getElementById('prodOutput3');
+                                                image.src = URL.createObjectURL(event.target.files[0]);
+                                            };
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Product Other Images-->
+                    <hr>
+
+
+
+
+                    <div class="row text-center">
+
+                        <button type="submit" class="btn btn-default btn-lg">Submit</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

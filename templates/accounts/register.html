@@ -1,0 +1,254 @@
+{% extends 'baseHtml.html' %} {% load static %} {% block title %} Merchant Registration {% endblock %} {% block navigation %}
+<li><a href="{% url 'home' %}">Home</a></li>
+<li><a href="{% url 'store' %}">Shop</a></li>
+<li><a href="{% url 'cart' %}">Cart</a></li>
+<li><a href="{% url 'checkout' %}">Checkout</a></li>
+<li><a href="#">Contact</a></li>
+{% endblock %} {% block content %}
+<div class="container">
+    <div class="row">
+        <section>
+
+            <div class="wizard">
+                <h4>Register as a vendor</h4>
+                <hr>
+                <div class="wizard-inner">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <div class="connecting-line"></div>
+
+                        <li role="presentation" class="active">
+                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                                <span class="round-tab">
+                                
+                                1
+                            </span>
+                            </a>
+
+                        </li>
+
+
+                        <li role="presentation" class="disabled">
+                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                                <span class="round-tab">
+                                2
+                            </span>
+                            </a>
+                        </li>
+
+                        <li role="presentation" class="disabled">
+                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                                <span class="round-tab">
+                                3
+                            </span>
+                            </a>
+                        </li>
+
+
+                        <li role="presentation" class="disabled">
+                            <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                                <span class="round-tab">
+                                <i class="fa fa-check"></i>
+                            </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <form role="form" action="Mregister" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset>
+                        {% autoescape on %}
+                        <div class="tab-content">
+                            <div class="tab-pane active" role="tabpanel" id="step1">
+                                <div class="step1">
+                                    <div class="tab_content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="BusiName">Business Name</label>
+                                                <input type="text" class="form-control" id="BusiName" name="BusiName" placeholder="Business Name">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="phoneNumber">Phone Number</label>
+                                                <input type="tel" class="form-control" id="phoneNumber" name="pNumber" placeholder="Phone Number">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="oName">Owner's Name</label>
+                                                <input type="text" class="form-control" id="oName" name="oName" placeholder="Owner's Name">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="Email">Email address</label>
+                                                <input type="email" class="form-control" id="Email" name="email" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="password">Create Password</label>
+                                                <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cpassword">Confirm Password</label>
+                                                <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="list-inline pull-right">
+                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="step2">
+                                <div class="step2">
+                                    <div class="tab_content">
+
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <img src="/static/img/placeholder.png" alt="" class="img-rounded img-responsive" width="100" height="100">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="aboutBusi">About your Business</label>
+                                                <textarea name="aboutBusi" id="aboutBusi" class="form-control" rows="3"></textarea>
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="industry">Service Industry</label><br>
+                                                <select name="industry" id="industry" class="form-control dropselectsec">
+                                                    <option value="Other">Other</option>
+                                                    <option value="Cleaning industry">
+                                                        Cleaning industry
+                                                    </option>
+                                                    <option value="Fashion industry">
+                                                        Fashion industry
+                                                    </option>
+                                                    <option value="IT service management‎">
+                                                        IT service management‎
+                                                    </option>
+                                                    <option value="Mobile telecommunication services‎">
+                                                        Mobile telecommunication services‎ 
+                                                    </option>
+                                                    <option value="Sport industry">
+                                                        Sport industry
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label for="addrBusi">Business Address</label>
+                                                <textarea name="addrBusi" id="addrBusi" class="form-control" rows="3"></textarea>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                </div>
+                                <ul class="list-inline pull-right">
+                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="step3">
+                                <div class="step33">
+                                    <div class="tab_content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="accNumber">Account Number</label>
+                                                <input type="text" class="form-control" id="accNumber" name="accNumber" placeholder="Account Number">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="accName">Account Name</label>
+                                                <input type="text" class="form-control" id="accName" name="accName" placeholder="Account Name">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+
+                                                <label for="country">Country</label><br>
+                                                <select name="country" id="country" class="form-control dropselectsec">
+                                                        <option value="">Select Country</option>
+                                                        <option value="Nigeria">Nigeria</option>
+                                                        <option value="Ghana">Ghana</option>
+                                                        <option value="Kenya">Kenya</option>
+                                                        <option value="United Kingdom">United Kingdom</option>
+                                                    </select>
+
+
+                                            </div>
+                                            <div class="col-md-6">
+
+                                                <label for="bankName">Select Bank</label><br>
+                                                <select name="bankName" id="bankName" class="form-control dropselectsec">
+                                                        <option value="">Select Bank</option>
+                                                        <option value="GTB">GTB</option>
+                                                        <option value="Stanley">Stanley</option>
+                                                        <option value="First bank">First bank</option>
+                                                        <option value="Polaris Bank">Polaris Bank</option>
+                                                    </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="bvn">Enter BVN</label>
+                                                <input type="text" class="form-control" id="bvn" name="bvn" placeholder="Enter BVN">
+                                            </div>
+                                            <div class="col-md-6 text-center">
+                                                <button type="button" class="btn btn-default prev-step">Previous</button>
+                                                <button name="submit" type="submit" value="Submit" class="btn btn-success next-step">Save and continue</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="complete">
+                                <div class="step44 text-center">
+                                    <div class="tab_content">
+                                        {% comment %}
+                                        <div class="row">
+                                            <img src="/static/img/placeholder.png" alt="">
+                                        </div> {% endcomment %}
+                                        <div class="row">
+                                            <div class="col">
+                                                <h1>Your Account has been Created Succefully</h1>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row">
+                                            {% include 'payment/pay.html' %}
+                                        </div>
+                                        <hr>
+                                        <h4 class="text-center text-muted">Other wise</h4>
+                                        <div class="row">
+                                            <div class="col">
+                                                <a href="{% url 'Mprofile' %}" class="btn btn-lg btn-success mx-3">Dashboard</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        {% endautoescape %}
+                    </fieldset>
+
+                </form>
+
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

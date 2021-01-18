@@ -1,12 +1,24 @@
-{% load static %} {% for each in carts %}
-<div class="product-widget">
-    <div class="product-img">
-        <img src="{{each.main_image}}" alt="">
+{% load static %}
+<div class="cart-list" id="cart-list">
+    {% for each in carts %}
+    <div class="product-widget">
+        <div class="product-img">
+            <img src="/{{each.main_image}}" alt="">
+        </div>
+        <div class="product-body">
+            <h3 class="product-name"><a href="#">{{each.name}}</a></h3>
+            <h4 class="product-price"><span class="qty">{{each.amount}}x</span>${{each.Price}}</h4>
+        </div>
+        <button class="delete"><i class="fa fa-close"></i></button>
     </div>
-    <div class="product-body">
-        <h3 class="product-name"><a href="#">{{each.name}}</a></h3>
-        <h4 class="product-price"><span class="qty">{{each.amount}}x</span>$980.00</h4>
-    </div>
-    <button class="delete"><i class="fa fa-close"></i></button>
+    {% endfor %}
 </div>
-{% endfor %}
+<div class="cart-summary">
+    <small>
+        {{carts|length}} Item(s) selected</small>
+    <h5>SUBTOTAL: ${{total_price}}</h5>
+</div>
+<div class="cart-btns">
+    <a href="{% url 'cart' %}">View Cart</a>
+    <a href="{% url 'checkout' %}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+</div>

@@ -36,7 +36,7 @@
                                 <a href="#" class="btn btn-info -link -mrxxxl" style="">
                                     <i class=" osh-font-fav-outline" style=""></i> <span class="label " style="">Move to Saved Items</span>
                                 </a>
-                                <a class="btn btn-info -link js-remove" href="#" style="">
+                                <a class="btn btn-info -link js-remove" href="#" style="" data-id="{{product.id}}">
                                     <i class="osh-font-trash" style=""></i> <span class="label" style="">Remove</span>
                                 </a>
                             </div>
@@ -57,6 +57,14 @@
                         </div>
                     </div>
                 </form>
+                {% empty %}
+                <div class="row">
+                    <div class="col text-center">
+                        <h4>
+                            Your Cart is Empty
+                        </h4>
+                    </div>
+                </div>
                 {% endfor %}
 
 
@@ -67,7 +75,7 @@
         <div class="col">
             <div class="resume -mtxxl -mbxs">
                 <div class="row total ft-total"><label>Total:</label>
-                    <div class="ft-total-panel"><span data-currency-iso="NGN">₦</span> <span dir="ltr" data-price="6399">6,399</span> </div>
+                    <div class="ft-total-panel"><span data-currency-iso="NGN">₦</span> <span dir="ltr" data-price="{{total_price}}">{{total_price}}</span> </div>
                 </div>
             </div>
         </div>
@@ -85,7 +93,7 @@
     <div class="row" style="margin-top: 20px;">
         <div class="summary-footer">
             <div class="container" style="">
-                <a href="#" class="osh-btn -primary -shadow continue-shopping"> <span class="label ">Continue Shopping</span> </a>
+                <a href="{% url 'store' %}" class="osh-btn -primary -shadow continue-shopping"> <span class="label ">Continue Shopping</span> </a>
                 <a href="{% url 'checkout' %}" class="osh-btn -primary -shadow ft-go-to-checkout"> <span class="label ">Proceed to Checkout</span> </a>
             </div>
         </div>

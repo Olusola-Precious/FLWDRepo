@@ -1,0 +1,39 @@
+{% load env_var %} {% block extraScript %}
+<script>
+    function makePayment() {
+        FlutterwaveCheckout({
+            public_key: "{% get_env_var 'PUBLIC_KEY' %}",
+            tx_ref: "hoolie-txz-1300432",
+            amount: 20,
+            currency: "{% get_env_var 'NORMAL_CURRENCY' %}",
+            payment_options: "card, mobilemoneyghana, ussd",
+
+            meta: {
+                consumer_id: 23,
+                consumer_mac: "92a3-912ba-1192a",
+            },
+            customer: {
+                email: "{{merchant.email}}",
+
+                phone_number: "{{merchant.phone_number}}",
+                name: "{{merchant.merchant_name}} ",
+            },
+            callback: function(data) {
+                //console.log(data.transaction_id);
+                transact_id = data.transaction_id;
+                console.log(transact_id);
+
+                window.location.href = `/pay/verify?id=${transact_id}`;
+            },
+            onclose: function() {
+                // close modal
+            },
+            customizations: {
+                title: "{% get_env_var 'APP_NAME' %}",
+                description: "Payment for Account Approval",
+                logo: "https://assets.piedpiper.com/logo.png",
+            },
+        });
+    }
+</script>
+{% endblock %}

@@ -113,14 +113,16 @@
             value = value < 1 ? 1 : value;
             $input.val(value);
             $input.change();
-            updatePriceSlider($this, value)
+            updatePriceSlider($this, value);
+            //console.log($input.val());
         })
 
         up.on('click', function() {
             var value = parseInt($input.val()) + 1;
             $input.val(value);
             $input.change();
-            updatePriceSlider($this, value)
+            updatePriceSlider($this, value);
+            // console.log($input.val());
         })
     });
 

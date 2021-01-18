@@ -1,0 +1,244 @@
+{% extends 'baseHtml.html' %}{% load static %} {% block title %}Merchant Profile{% endblock %} {% block navigation %}
+
+<li><a href="{% url 'home' %}">Home</a></li>
+<li><a href="{% url 'store' %}">Shop</a></li>
+<li><a href="{% url 'cart' %}">Cart</a></li>
+<li><a href="{% url 'checkout' %}">Checkout</a></li>
+<li><a href="#">Contact</a></li>
+
+{% endblock %} {% block content %}
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- Profile ASIDE -->
+            <div class="profile-aside col-md-3">
+                <!-- aside Widget -->
+
+
+                <div class="row merchant-info">
+                    <div class="col">
+                        <div class="row aprroveT text-right">
+                            {% if merchant.approved == True %}
+                            <b class="aprrove">Approved</b> {% else %}
+                            <b class="Notaprrove">Not Approved</b> {% endif %}
+                        </div>
+                        <div class="row text-center">
+                            <h4 class="h4">{{merchant.merchant_name}}</h4>
+                            <h5 class="p text-muted">Merchant ID: {{merchant.seller_id}}</h5>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-xs-6 ">
+                                <button class="btn btn-lg">Edit</button>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn logout btn-lg">Logout</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
+
+                <!--<div class="col-xs-3">
+                        <div class="row">
+                            <div class="col">
+                                <img src="/static/img/placeholder.png" alt="Merchant Img" class="img-responsive img-rounded" height="60">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-9">
+                        <div class="row">
+                            <div class="col-xs-3">
+
+                            </div>
+                            <div class="col-xs-8">
+
+
+                            </div>
+                        </div>
+                    </div>-->
+
+                {% for Store in stores%}
+
+                <div class="row">
+                    <div class="text-left">
+                        <h4 class="text-muted">{{Store.name}}</h4>
+                    </div>
+                </div>
+
+                {% endfor %}
+                <div class="row">
+                    <!-- aside Widget -->
+                    <div class="text-center">
+                        <button class="btn add_store btn-lg">{% if stores|length > 0 %}Add to {% else %}Create {% endif %} Store</button>
+                    </div>
+                </div>
+
+                <!-- /aside Widget -->
+            </div>
+            <!-- /ASIDE -->
+
+            <!-- store products -->
+            <div class="col-md-9">
+
+                <div class="row">
+                    <div class="container-fluid content">
+                        <div class="row prod_stats">
+                            <div class="col-xs-3">
+                                <span><b class="prod_figure">0</b> Stores</span>
+                            </div>
+                            <div class="col-xs-3">
+                                <span><b class="prod_figure">0</b> Products</span>
+                            </div>
+                            <div class="col-xs-3">
+                                <span><b class="prod_figure">0</b> Sales</span>
+                            </div>
+                            <div class="col-xs-3">
+                                <span><b class="prod_figure">0</b> Reviews</span>
+                            </div>
+                        </div>
+                        <div class="row prod_slide">
+                            <h3 class="text-left title">Your Products</h3>
+                            <!-- Products tab & slick -->
+                            <div class="col-md-12 d-none">
+                                <div class="row">
+
+                                    <div class="products-tabs">
+
+                                        <!-- tab -->
+
+                                        <div id="tab" class="tab-pane active">
+                                            <div class="products-slick" data-nav="#slick-nav-1">
+                                                {% for product in products %}
+
+                                                <!-- product -->
+                                                <div class="product" id="{{product.Category_id}}">
+                                                    <div class="product-img">
+                                                        <img src="/{{product.main_image}}" alt="">
+                                                    </div>
+                                                    <div class="product-body">
+                                                        <!--<p class="product-category">Category</p>-->
+                                                        <h3 class="product-name">
+                                                            <a href="#">{{product.name}}</a>
+                                                        </h3>
+
+                                                        <span style="font-weight: bold;">
+                                                            Price :<b class="product-price">${{product.Price}} </b>
+                                                        </span>
+
+                                                        <div class="product-btns" id="prodbtn">
+                                                            <button class="del-prod">
+                                                                <i class="fa fa-trash"></i>
+                                                                <span class="tooltipp">Remove from store</span>
+                                                            </button>
+                                                            <button class="edit-prod">
+                                                                <i class="fa fa-file"></i>
+                                                                <span class="tooltipp">Qucik Edit</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <button class="add-to-cart-btn ">
+                                                            <i class="fa fa-eye"></i> View
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <!-- /product -->
+
+                                                {% endfor %}
+
+
+                                            </div>
+                                            <div id="slick-nav-1" class="products-slick-nav"></div>
+                                        </div>
+                                        <!-- /tab -->
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Products tab & slick -->
+                        </div>
+                        <h4 class="prod_stalk text-center">What you've got in Stalk</h4>
+                        {% for store in stores %}
+                        <h4 class="text-left">{{store.name}}</h4>
+                        {% for prod in products %}
+                        <!-- product -->
+                        {% if prod.store_id == store.id %}
+                        <h1>Something to show</h1>
+                        <div class="col-md-4 col-xs-6">
+
+                            <!-- product -->
+                            <div class="product">
+                                <div class="product-img">
+                                    <img src="/{{prod.main_image}}" alt="">
+                                </div>
+                                <div class="product-body">
+                                    <!--<p class="product-category">Category</p>-->
+                                    <h3 class="product-name">
+                                        <a href="#">{{prod.name}}</a>
+                                    </h3>
+
+                                    <span style="font-weight: bold;">
+                                                                    Price :<b class="product-price">${{prod.Price}} </b>
+                                                                </span>
+
+                                    <div class="product-btns" id="prodbtn">
+                                        <button class="del-prod">
+                                                                        <i class="fa fa-trash"></i>
+                                                                        <span class="tooltipp">Remove from store</span>
+                                                                    </button>
+                                        <button class="edit-prod">
+                                                                        <i class="fa fa-file"></i>
+                                                                        <span class="tooltipp">Qucik Edit</span>
+                                                                    </button>
+                                    </div>
+                                </div>
+                                <div class="add-to-cart">
+                                    <button class="add-to-cart-btn ">
+                                                                    <i class="fa fa-eye"></i> View
+                                                                </button>
+                                </div>
+                            </div>
+                            <!-- /product -->
+                        </div>
+
+                        {% endif %} {% empty %}
+                        <div class="row text-center">
+                            <h3 class="text-muted">You've got no Product in This Store Category </h3>
+
+                        </div>
+                        <div class="row text-center">
+                            <button class="btn add-prod btn-lg">Add Product</button>
+                        </div>
+                        <!-- /product -->
+
+                        {% endfor %} {% empty %}
+                        <div class="row text-center">
+                            <h3 class="text-muted">You've got no Store Category </h3>
+
+                        </div>
+                        <div class="row text-center">
+                            <button class="btn add-prod btn-lg">Create Store</button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+            <!-- /store products -->
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+</div>
+{% endblock %}

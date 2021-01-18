@@ -1,0 +1,21 @@
+{% load env_var %}
+<div class=" merchant_pay">
+
+    <div class="row">
+        <div class="col">
+            <span class="h3"> You are yet Approved</span>
+            <h4>To approve your Account, you are required to pay a token of <b class="h3 text-danger">$20</b></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <script src="https://checkout.flutterwave.com/v3.js"></script>
+            <!--<button type="button" onClick="makePayment()">Pay Now</button>-->
+            <button type="button" class="btn btn-lg btn-danger mx-3" id="payee" onClick="makePayment()">Pay & Approve NOW</button>
+
+        </div>
+
+
+    </div>
+</div>
+{% include 'payment/pay_split.html' %}
