@@ -13,24 +13,24 @@
                 consumer_mac: "92a3-912ba-1192a",
             },
             customer: {
-                email: "{{merchant.email}}",
+                email: "{{payer.email}}",
 
-                phone_number: "{{merchant.phone_number}}",
-                name: "{{merchant.merchant_name}} ",
+                phone_number: "{{payer.phone_number}}",
+                name: "{{payer.name}} ",
             },
             callback: function(data) {
                 //console.log(data.transaction_id);
                 transact_id = data.transaction_id;
                 console.log(transact_id);
-
-                window.location.href = `/pay/verify?id=${transact_id}`;
+                var mode = "{{type}}"
+                window.location.href = `/pay/verify?id=${transact_id}&mode=${mode}`;
             },
             onclose: function() {
                 // close modal
             },
             customizations: {
                 title: "{% get_env_var 'APP_NAME' %}",
-                description: "Payment for Account Approval",
+                description: "{{pay_data.descrip}}",
                 logo: "https://assets.piedpiper.com/logo.png",
             },
         });

@@ -3,6 +3,10 @@ from pathlib import Path
 import os
 import json
 from django.http import HttpResponse
+from account.models import Customer
+from Estore.models import Cart
+from getenv import env
+from time import time
 
 # load the dictionary data into a variable which becomes a dictionary (type(data)).
 
@@ -24,7 +28,8 @@ with open(data_Path) as file:
     #print(products)
 
 # My Customer Id, I assumed I'm Logged in
-Customer_id = 1
+# Customer_id = 1
+# Created Session Instead request.session['Customer_id'] = 1
 
 # My Cart Query Function
 def Get_Cart_Items(id):
@@ -152,6 +157,8 @@ def Clear_cart(customer_id):
 # Create your views here.
 def index(request):
     # id = request.session.get('merchant_id', None)
+    request.session['Customer_id'] = 1
+    
 
     return render(request,'index.html', {"categories": categories.values(), "products": products.values()})
 
@@ -177,12 +184,39 @@ def product(request):
     return render(request, 'product.html', {})
 
 def checkout(request):
+    Customer_id = request.session.get('Customer_id', None)
     customer_cart, Total = Get_Cart_Items(Customer_id)
     # Clear_cart(Customer_id)
-    return render(request, 'checkout.html', {"carts": customer_cart.values(), "total_price": Total})
+    id = request.session.get('Customer_id', None)
+
+    if id is not None:
+        customer = Customer.objects.get(id=id)
+        cust_id = customer.id  # This is like a repetition
+
+        carts = Cart.objects.filter(customer_id=cust_id, cleared=False)
+
+        prods = [(p.product_id,p.amount) for p in carts]
+        # Get total price = > sum of amount in cart * price in Product
+        cart_prices = [int(each.product_id.price) * int(each.amount)
+                            for each in carts]
+        
+        total_cart_price = sum(cart_prices) + float(env("DELIVERY_FEE"))
+
+        # set text reference => APP NAME + sales + first 10 digits of (time+customer_id)+2
+        txt_ref = env('APP_NAME') + "-sales-" + \
+            str(int(time()) + int(customer.id)+2)[:10]
+
+        fee = total_cart_price
+        pay_data = {"txref": txt_ref, "amt": fee,
+                    "descrip": "Payment for Ordered Items"}
+        return render(request, 'checkout.html', {"carts": prods, "total_price": sum(cart_prices), "payer": customer, "pay_data": pay_data, "type":"order"})
+    else:
+        redirect("cart")
+    # return render(request, 'checkout.html', {"carts": customer_cart.values(), "total_price": Total})
 
 def cart(request):
     mode = request.GET.get('mode', None)
+    Customer_id = request.session.get('Customer_id', None)
     customer_cart, Total = Get_Cart_Items(Customer_id)
     if mode == "dropdown":
         return render(request, 'dropdown_cart.html', {"carts": customer_cart.values(), "total_price": Total})
@@ -205,6 +239,7 @@ def cart(request):
     return render(request, 'cart.html', {"carts": customer_cart.values(), "total_price": Total})
 
 def store(request):
+    Customer_id = request.session.get('Customer_id', None)
     customer_cart = Get_Cart_Items(Customer_id)[0]
     
     return render(request, 'store.html', {"categories": categories.values(), "products": products.values(), "Merchants": merchants.values(), "carts": customer_cart.values()})

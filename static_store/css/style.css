@@ -1960,7 +1960,8 @@ input:focus {
 }
 
 .order-products {
-    overflow: auto;
+    height: 200px;
+    overflow-y: scroll;
 }
 
 .order-details:before {

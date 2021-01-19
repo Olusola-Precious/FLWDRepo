@@ -155,7 +155,7 @@
             "id": 2,
             "customer_id": 1,
             "product_id": 3,
-            "amount": 7,
+            "amount": 1,
             "date_added": ""
         },
         "5": {
@@ -165,17 +165,17 @@
             "amount": 1,
             "date_added": ""
         },
-        "6": {
-            "id": 6,
-            "customer_id": 1,
-            "product_id": 9,
-            "amount": 1,
-            "date_added": ""
-        },
         "7": {
             "id": 7,
             "customer_id": 1,
             "product_id": 7,
+            "amount": 1,
+            "date_added": ""
+        },
+        "8": {
+            "id": 8,
+            "customer_id": 1,
+            "product_id": 6,
             "amount": 1,
             "date_added": ""
         }

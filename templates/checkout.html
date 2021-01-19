@@ -1,4 +1,4 @@
- {% extends 'baseHtml.html' %}{% load static %} {% block title %}Checkout{% endblock %}{% block navigation %}
+ {% extends 'baseHtml.html' %}{% load static %}{% load env_var %} {% block title %}Checkout{% endblock %}{% block navigation %}
 
 <li><a href="{% url 'home' %}">Home</a></li>
 <li><a href="{% url 'store' %}">Shop</a></li>
@@ -114,29 +114,48 @@
                 <div class="section-title text-center">
                     <h3 class="title">Your Order</h3>
                 </div>
+                <hr>
                 <div class="order-summary">
                     <div class="order-col">
                         <div><strong>PRODUCT</strong></div>
                         <div><strong>TOTAL</strong></div>
                     </div>
                     <div class="order-products">
-                        {% for prod in carts %}
+                        {% for prod,amt in carts %}
                         <div class="order-col">
-                            <div>{{prod.amount}}x {{prod.name}}</div>
-                            <div>${{prod.Price}}</div>
+                            <div>{{amt}}x {{prod.name}}</div>
+                            <div>${{prod.price}}</div>
                         </div>
                         {% endfor %}
 
                     </div>
+                    <hr>
                     <div class="order-col">
-                        <div>Shiping</div>
-                        <div><strong>FREE</strong></div>
+                        <div>Subtotal total</div>
+
+                        <div>
+                            <span>$<strong class="sub_total">{{total_price}}</strong></span>
+                        </div>
+
                     </div>
                     <div class="order-col">
-                        <div><strong>TOTAL</strong></div>
-                        <div><strong class="order-total">${{total_price}}</strong></div>
+                        <div>Delivery Fee</div>
+                        <div>
+                            <span>$<strong class="delivery_fee">{% get_env_var 'DELIVERY_FEE' %}</strong></span>
+                        </div>
                     </div>
+                    <div class="order-col">
+                        <div class="h3">Total</div>
+                        <div>
+                            <span>$
+                                <strong class="order-total"></strong>
+                            </span>
+                        </div>
+
+                    </div>
+                    <hr>
                 </div>
+                {% comment %}
                 <div class="payment-method">
                     <div class="input-radio">
                         <input type="radio" name="payment" id="payment-1">
@@ -169,14 +188,23 @@
                         </div>
                     </div>
                 </div>
+                {% endcomment %}
                 <div class="input-checkbox">
+                    {% comment %}
                     <input type="checkbox" id="terms">
                     <label for="terms">
 								<span></span>
 								I've read and accept the <a href="#">terms & conditions</a>
-							</label>
+                            </label> {% endcomment %}
+
                 </div>
-                <a href="{% url 'pay' %}" class="primary-btn order-submit">Place order</a>
+                <div class="pay-btn">
+
+                    <a href="{% url 'cart' %}" class="primary-btn order-submit">Modify Cart</a>
+                    <script src="https://checkout.flutterwave.com/v3.js"></script>
+                    <button type="button" onClick="makePayment()" class="primary-btn order-submit">Place order</button>
+                </div>
+
             </div>
             <!-- /Order Details -->
         </div>
@@ -185,5 +213,4 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
-
-{% endblock %}
+{% include 'payment/pay_split.html' %} {% endblock %}

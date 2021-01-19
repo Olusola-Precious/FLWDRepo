@@ -17,6 +17,8 @@ from django import urls
 from django.contrib import admin
 from django.urls import path, include
 import os
+from django.conf import settings
+from django.conf.urls.static import static
 
 admin.site.site_header = os.getenv('APP_NAME') + " Administrator"
 admin.site.site_title = os.getenv('APP_NAME') + " Administrator"
@@ -31,3 +33,5 @@ urlpatterns = [
     path(os.getenv('SECRET_ADMIN_URL'), admin.site.urls),
 ]
 
+
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

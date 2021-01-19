@@ -12,7 +12,7 @@ $(function() {
     $("#cart-dropdown").load("/cart?mode=dropdown");
     $("#cart-qty").load("/cart?mode=qty");
 
-    
+
 
 
     // Qucik View
@@ -28,12 +28,13 @@ $(function() {
     $(".add_to_cart").click(function() {
         var id = $(this).data('id');
         var qty = $(this).data('qty');
+        console.log(qty);
         CartPageRedirect(id, qty);
 
     });
 
     // Add to Cart from product Page
-    $('.add-to-cart').each(function() {
+    $('.add_to_cart').each(function() {
         var $this = $(this),
             $input = $this.find('input[type="number"]'),
 
@@ -74,8 +75,66 @@ $(function() {
     });
 
 
+    // Logout
+    $(".logout").click(function() {
+        window.location.href = "Mlogout";
+    })
 
 
+    // Add to store
+    $(".add_store").click(function() {
+        console.log("Add to Store")
+        $(".content").load("/pay");
+    });
+
+
+    // Pay while Registring
+    $(".tab_comp").click(function() {
+        // console.log("Now Pay");
+
+        $(".pay-content").load("/pay");
+    })
+
+    $("#Mregister").submit(function(event) {
+        event.preventDefault();
+
+
+        var form = $(this)
+        var data = form.serialize();
+        // $(".tab_comp").trigger("click");
+
+
+        //console.log(data);
+
+
+        $.ajax({
+            url: 'Mregister',
+            type: "POST",
+            data: data,
+            success: function() {
+                $(".tab_comp").trigger("click");
+            }
+        })
+
+
+
+    });
+
+
+    // Calculate total Price on checkout page
+    $(".order-summary").each(function() {
+        //var subPrice = $(".sub-total").val();
+        //var Dfee = $(".delivery-fee").val();
+        var $this = $(this),
+            subprice = $this.find(".sub_total").text(),
+            deliveryFee = $this.find(".delivery_fee").text(),
+            sum = parseInt(subprice) + parseInt(deliveryFee),
+            total = $this.find(".order-total").text(sum);
+        //console.log(subprice);
+        //console.log(deliveryFee);
+        //console.log(total.text());
+
+    });
 
 
 

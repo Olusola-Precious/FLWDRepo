@@ -93,7 +93,8 @@ $(function() {
         // console.log("Now Pay");
 
         $(".pay-content").load("/pay");
-    })
+    });
+
 
     $("#Mregister").submit(function(event) {
         event.preventDefault();
@@ -117,6 +118,22 @@ $(function() {
         })
 
 
+
+    });
+
+
+    // Calculate total Price on checkout page
+    $(".order-summary").each(function() {
+        //var subPrice = $(".sub-total").val();
+        //var Dfee = $(".delivery-fee").val();
+        var $this = $(this),
+            subprice = $this.find(".sub_total").text(),
+            deliveryFee = $this.find(".delivery_fee").text(),
+            sum = parseInt(subprice) + parseInt(deliveryFee),
+            total = $this.find(".order-total").text(sum);
+        //console.log(subprice);
+        //console.log(deliveryFee);
+        //console.log(total.text());
 
     });
 

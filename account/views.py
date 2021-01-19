@@ -45,6 +45,7 @@ def Mlogin(request):
 
             if password == merchant.password:
                 
+                # Set session
                 request.session['merchant_id'] = merchant.seller_id
 
                 return redirect("Mprofile")

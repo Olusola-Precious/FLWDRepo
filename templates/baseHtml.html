@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %}{% load env_var %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>{% block title %}{% endblock %} | Jumga</title>
+    <title>{% block title %}{% endblock %} | {% get_env_var 'APP_NAME' %}</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -94,9 +94,9 @@
                     <!-- LOGO -->
                     <div class="col-md-3">
                         <div class="header-logo">
-                            <a href="#" class="logo">
+                            <a href="{% url 'home' %}" class="logo">
                                 <!--<img src="{% static 'img/logo.png' %}" alt="">-->
-                                <span class="h2 logo">JUMGA</span>
+                                <span class="h2 logo">{% get_env_var 'APP_NAME' %}</span>
                             </a>
                         </div>
                     </div>
