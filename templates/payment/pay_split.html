@@ -3,8 +3,8 @@
     function makePayment() {
         FlutterwaveCheckout({
             public_key: "{% get_env_var 'PUBLIC_KEY' %}",
-            tx_ref: "hoolie-txz-1300432",
-            amount: 20,
+            tx_ref: "{{pay_data.txref}}",
+            amount: parseInt("{{pay_data.amt}}"),
             currency: "{% get_env_var 'NORMAL_CURRENCY' %}",
             payment_options: "card, mobilemoneyghana, ussd",
 

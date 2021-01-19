@@ -88,6 +88,37 @@ $(function() {
     });
 
 
+    // Pay while Registring
+    $(".tab_comp").click(function() {
+        // console.log("Now Pay");
+
+        $(".pay-content").load("/pay");
+    })
+
+    $("#Mregister").submit(function(event) {
+        event.preventDefault();
+
+
+        var form = $(this)
+        var data = form.serialize();
+        // $(".tab_comp").trigger("click");
+
+
+        //console.log(data);
+
+
+        $.ajax({
+            url: 'Mregister',
+            type: "POST",
+            data: data,
+            success: function() {
+                $(".tab_comp").trigger("click");
+            }
+        })
+
+
+
+    });
 
 
 

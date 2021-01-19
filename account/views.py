@@ -109,7 +109,7 @@ def Mregister(request):
         bvn = request.POST['bvn']
 
         # print(locals())
-
+        
         
         if password == cpassword:
             if Merchant.objects.filter(email=email).exists():
@@ -133,10 +133,16 @@ def Mregister(request):
                                 bvn = bvn
                                 )
                 new_seller.save()
-                return redirect("Mlogin")
+                # Add it to session
+                request.session.get('merchant_id', '')
+                request.session['merchant_id'] = sellerId
+                return redirect("Mregister") # redirect("Mlogin")
+        
         else:
             print("Password Does not match")
             return redirect("Mregister")
+        
+        return redirect("Mregister")
     
     else:
         # If Request is GET
