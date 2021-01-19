@@ -19,9 +19,10 @@ from django.urls import path, include
 import os
 from django.conf import settings
 from django.conf.urls.static import static
+from getenv import env
 
-admin.site.site_header = os.getenv('APP_NAME') + " Administrator"
-admin.site.site_title = os.getenv('APP_NAME') + " Administrator"
+admin.site.site_header = env('APP_NAME') + " Administrator"
+admin.site.site_title = env('APP_NAME') + " Administrator"
 admin.site.index_title = 'Welcome'
 
 
@@ -30,7 +31,7 @@ urlpatterns = [
     path("account/", include('account.urls')),
     path("pay/", include('payment.urls')),
     # path('admin/', admin.site.urls),
-    path(os.getenv('SECRET_ADMIN_URL'), admin.site.urls),
+    path(env('SECRET_ADMIN_URL'), admin.site.urls),
 ]
 
 

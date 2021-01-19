@@ -87,3 +87,7 @@ class Cart(models.Model):
         db_table = "Cart_tb"
         verbose_name = "Cart"
         verbose_name_plural = "Carts"
+
+
+
+    

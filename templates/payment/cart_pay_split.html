@@ -1,32 +1,37 @@
 {% load env_var %} {% block extraScript %}
 <script>
     function makePayment() {
+
         FlutterwaveCheckout({
             public_key: "{% get_env_var 'PUBLIC_KEY' %}",
             tx_ref: "{{pay_data.txref}}",
             amount: parseInt("{{pay_data.amt}}"),
             currency: "{% get_env_var 'NORMAL_CURRENCY' %}",
-            payment_options: "card, mobilemoneyghana, ussd",
-
-            meta: {
-                consumer_id: 23,
-                consumer_mac: "92a3-912ba-1192a",
-            },
+            payment_options: "card,ussd,barter",
             customer: {
                 email: "{{payer.email}}",
-
-                phone_number: "{{payer.phone_number}}",
+                phonenumber: "{{payer.phone_number}}",
                 name: "{{payer.name}}",
             },
+            subaccounts: [{
+                    id: "{{dispatch_share.id}}",
+                    transaction_charge_type: "flat",
+                    transaction_charge: "{{dispatch_share.share}}"
+                },
+
+                {
+                    id: "{{merchant_share.id}}",
+                    transaction_charge_type: "flat",
+                    transaction_charge: "{{merchant_share.share}}"
+                }
+
+            ],
             callback: function(data) {
-                //console.log(data.transaction_id);
+                //console.log(data);
                 transact_id = data.transaction_id;
                 console.log(transact_id);
                 var mode = "{{type}}"
                 window.location.href = `/pay/verify?id=${transact_id}&mode=${mode}`;
-            },
-            onclose: function() {
-                // close modal
             },
             customizations: {
                 title: "{% get_env_var 'APP_NAME' %}",

@@ -3,7 +3,7 @@ from pathlib import Path
 import os
 import json
 from django.http import HttpResponse
-from account.models import Customer
+from account.models import Customer, Dispatcher, Merchant
 from Estore.models import Cart
 from getenv import env
 from time import time
@@ -209,7 +209,40 @@ def checkout(request):
         fee = total_cart_price
         pay_data = {"txref": txt_ref, "amt": fee,
                     "descrip": "Payment for Ordered Items"}
-        return render(request, 'checkout.html', {"carts": prods, "total_price": sum(cart_prices), "payer": customer, "pay_data": pay_data, "type":"order"})
+
+        # Sorting the Payments and splitting
+        pay_shares = []
+        
+        dispatch_delivery_charge_percent = float(env("DELIVERY_FEE")) * 0.8
+        
+        dispatch_id = 1
+        
+        dispatcher = Dispatcher.objects.get(id=dispatch_id)
+        dispatch_ref_id = str(dispatcher.subAcc_id)
+
+        # Dispatch Share
+        #pay_shares['dispatch_share'] = {'id':dispatch_ref_id, 'amt': dispatch_delivery_charge_percent}
+        dispatch_share = {'id': dispatch_ref_id,
+                           'share': dispatch_delivery_charge_percent}
+        merchant_ids =[e.product_id.store_id.merchant_id.id for e in Cart.objects.filter(customer_id=1)]
+        merchants_amt = {}
+        for mid in merchant_ids:
+            tot_price = sum([int(e.amount) * int(e.product_id.price) for e in Cart.objects.filter(
+                customer_id=cust_id) if e.product_id.store_id.merchant_id.id == int(mid)])
+            merchants_amt[mid] = tot_price
+        # print(merchants_amt)
+
+        merchant_share = None
+        for merch,cash in merchants_amt.items():
+            # print(cash)
+            merchant = Merchant.objects.get(id=merch)
+            # pay_shares[merchant.name] = {'id':merchant.subAcc_id, 'amt':round(cash * 0.975)}
+            
+            merchant_share = {'id': merchant.subAcc_id,'share': round(cash * 0.975)}
+        
+        # print(pay_shares)
+        # I assume I have just a Dispatch Rider and A vendor 
+        return render(request, 'checkout.html', {"carts": prods, "total_price": sum(cart_prices), "payer": customer, "pay_data": pay_data, "dispatch_share": dispatch_share, "merchant_share": merchant_share, "type": "order"})
     else:
         redirect("cart")
     # return render(request, 'checkout.html', {"carts": customer_cart.values(), "total_price": Total})

@@ -22,6 +22,9 @@ class Merchant(models.Model):
     bank = models.CharField(max_length=100, blank=True)
     bvn = models.CharField(max_length=30, null=True)
 
+    # Flutterwave subaccount id
+    subAcc_id = models.CharField(max_length=300, blank=False)
+
     approved = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now_add=False, auto_now=True)
 
@@ -57,3 +60,27 @@ class Customer(models.Model):
         db_table = "Customer_tb"
         verbose_name = "Customer"
         verbose_name_plural = "Customers"
+
+
+class Dispatcher(models.Model):
+    name = models.CharField(max_length=150, blank=False)
+    phoneNumber = models.CharField(max_length=50, blank=False)
+    email = models.EmailField(max_length=100, unique=True)
+    accNumber = models.CharField(max_length=150, blank=True)
+    accName = models.CharField(max_length=150, blank=False)
+    bank = models.CharField(max_length=150, blank=False)
+    subAcc_id = models.CharField(max_length=300, blank=False)
+    is_active = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('date_joined')
+
+    class Meta:
+        db_table = "Dispatch_tb"
+        verbose_name = "Dispatcher"
+        verbose_name_plural = "Dispatchers"

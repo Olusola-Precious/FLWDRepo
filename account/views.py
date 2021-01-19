@@ -118,7 +118,7 @@ def Mregister(request):
                 return redirect("Mregister")
             else:
                 new_seller = Merchant(
-                                merchant_name = name,
+                                name = name,
                                 seller_id = sellerId,
                                 owner = owner,
                                 phone_number = phone_number,
