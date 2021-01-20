@@ -4,7 +4,7 @@ from pathlib import Path
 import json
 from django.contrib import messages
 from time import time
-from .models import Merchant
+from .models import Merchant, Customer
 from Estore.models import Store_Category
 
 
@@ -30,7 +30,98 @@ with open(data_Path) as file:
 
 # Create your views here.
 
-# Merchant's Login 
+# Customer Register
+def Cregister(request):
+    if request.method == 'POST':
+        firstName = request.POST['fName']
+        lastName = request.POST['lName']
+        Name = firstName +' '+ lastName
+        
+        phone_number = request.POST['cphone']
+        Email = request.POST['cemail']
+        password = request.POST['password']
+        cpassword = request.POST['cpassword']
+
+        # print(locals())
+
+        if (password == cpassword) and (password !='' and cpassword !=''):
+            if Customer.objects.filter(email=Email).exists():
+                print("Email already Exist")
+                return redirect("Mregister")
+            else:
+                print("Correct! :)")
+                print(locals())
+                
+                new_customer = Customer(
+                    first_name = firstName,
+                    last_name=lastName,
+                    name=Name,
+                    
+                    phone_number=phone_number,
+                    email=Email,
+                    password=password
+                )
+                new_customer.save()
+                
+                # Add it to session
+
+                # Get That customer's databse id
+                customer_id = Customer.objects.get(email=Email)
+                request.session.get('customer_id', '')
+                request.session['customer_id'] = customer_id
+                
+                return redirect("home")  # redirect("Mlogin")
+
+        else:
+            print("Password Does not match")
+            return redirect("Cregister")
+
+    else:
+        return render(request, "accounts/customer_reg.html", {})
+
+# Customer Login
+def Clogin(request):
+    if request.method == 'POST':
+        email = request.POST['cemail']
+        password = request.POST['password']
+
+        if Customer.objects.filter(email=email).exists():
+            # create session for login Customer
+            customer = Customer.objects.get(email=email)
+            request.session.get('customer_id', '')
+
+            if password == customer.password:
+
+                # Set session
+                request.session['customer_id'] = customer.id
+
+                return redirect("home")
+            else:
+                return redirect("Clogin")
+            
+        else:
+            return redirect("Mlogin")
+    else:
+        # delete Merchant session
+        try:
+            del request.session['merchant_id']
+        except KeyError:
+            pass
+        return render(request, "accounts/customer_login.html", {})
+
+# Customer Logout
+def Clogout(request):
+    # delete Merchant session
+    try:
+        del request.session['customer_id']
+        print("Session Deleted")
+    except KeyError:
+        pass
+    return redirect("Clogin")
+
+
+
+# Merchant's Login
 def Mlogin(request):
     # next = request.GET.get('next')
     if request.method == 'POST':
@@ -42,9 +133,8 @@ def Mlogin(request):
             merchant = Merchant.objects.get(email=email)
             request.session.get('merchant_id', '')
 
-
             if password == merchant.password:
-                
+
                 # Set session
                 request.session['merchant_id'] = merchant.seller_id
 
@@ -60,10 +150,8 @@ def Mlogin(request):
             del request.session['merchant_id']
         except KeyError:
             pass
-        return render(request, 'accounts/login.html', {})
+        return render(request, 'accounts/merchant_login.html', {})
 
-    
-    
 
 # Merchant's Profile 
 def Mprofile(request):
@@ -75,10 +163,11 @@ def Mprofile(request):
         merchant = Merchant.objects.get(seller_id=id)
         merchant_stores = Store_Category.objects.filter(merchant_id=merchant.id)
         # print(merchant_stores)
-        return render(request, 'accounts/profile.html', {"products": products.values(), "merchant": merchant, "stores":merchant_stores})
+        return render(request, 'accounts/merchant_profile.html', {"products": products.values(), "merchant": merchant, "stores":merchant_stores})
     else:
         return redirect("Mlogin")
 
+# Merchant Logout
 def Mlogout(request):
     # delete Merchant session
     try:
@@ -147,7 +236,7 @@ def Mregister(request):
     
     else:
         # If Request is GET
-        return render(request, 'accounts/register.html', {})
+        return render(request, 'accounts/merchant_reg.html', {})
 
 
 def addProduct(request):

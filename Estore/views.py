@@ -29,7 +29,7 @@ with open(data_Path) as file:
 
 # My Customer Id, I assumed I'm Logged in
 # Customer_id = 1
-# Created Session Instead request.session['Customer_id'] = 1
+# Created Session Instead request.session['customer_id'] = 1
 
 # My Cart Query Function
 def Get_Cart_Items(id):
@@ -157,7 +157,7 @@ def Clear_cart(customer_id):
 # Create your views here.
 def index(request):
     # id = request.session.get('merchant_id', None)
-    request.session['Customer_id'] = 1
+    # request.session['customer_id'] = 1
 
     products = Product.objects.all()
 
@@ -185,10 +185,10 @@ def product(request):
     return render(request, 'product.html', {})
 
 def checkout(request):
-    Customer_id = request.session.get('Customer_id', None)
+    # Customer_id = request.session.get('customer_id', None)
     # customer_cart, Total = Get_Cart_Items(Customer_id)
     # Clear_cart(Customer_id)
-    id = request.session.get('Customer_id', None)
+    id = request.session.get('customer_id', None)
 
     if id is not None:
         customer = Customer.objects.get(id=id)
@@ -246,11 +246,11 @@ def checkout(request):
         return render(request, 'checkout.html', {"carts": prods, "total_price": sum(cart_prices), "payer": customer, "pay_data": pay_data, "dispatch_share": dispatch_share, "merchant_share": merchant_share, "type": "order"})
     else:
         redirect("cart")
-    # return render(request, 'checkout.html', {"carts": customer_cart.values(), "total_price": Total})
+    return render(request, 'checkout.html', {"carts": {}, "total_price": 0})
 
 def cart(request):
     mode = request.GET.get('mode', None)
-    Customer_id = request.session.get('Customer_id', None)
+    Customer_id = request.session.get('customer_id', None)
     # customer_cart, Total = Get_Cart_Items(Customer_id)
     customer_cart = Cart.objects.filter(customer_id=Customer_id)
     prods = [(p.product_id, p.amount) for p in customer_cart]
@@ -277,7 +277,7 @@ def cart(request):
     return render(request, 'cart.html', {"carts": prods, "total_price": sum(cart_prices)})
 
 def store(request):
-    Customer_id = request.session.get('Customer_id', None)
+    Customer_id = request.session.get('customer_id', None)
     # customer_cart = Get_Cart_Items(Customer_id)[0]
     customer_cart = Cart.objects.filter(customer_id=Customer_id)
     prods = [p.product_id for p in customer_cart]

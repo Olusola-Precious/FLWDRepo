@@ -2021,7 +2021,9 @@ input:focus {
 
 
 /*=========================================================
-	10 -> LOGIN PAGE
+    10 -> LOGIN PAGE
+    Same Css code repeated for Merchant Login and 
+    Customer Registration&Login pages
 ===========================================================*/
 
 .login {
@@ -2029,7 +2031,7 @@ input:focus {
     margin: 20px auto;
     border: 2px solid #E4E7ED;
     padding: 30px;
-    height: 380px;
+    height: fit-content;
 }
 
 .login .header {
@@ -2067,7 +2069,7 @@ input:focus {
         margin-left: 50px;
         border: 2px solid #E4E7ED;
         padding: 30px;
-        height: 380px;
+        height: fit-content;
     }
 }
 

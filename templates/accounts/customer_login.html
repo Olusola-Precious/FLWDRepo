@@ -1,0 +1,41 @@
+{% extends 'baseHtml.html' %}{% load static %} {% block title %}Customer Login{% endblock %} {% block navigation %}
+<li><a href="{% url 'home' %}">Home</a></li>
+<li><a href="{% url 'store' %}">Shop</a></li>
+<li><a href="{% url 'cart' %}">Cart</a></li>
+<li><a href="{% url 'checkout' %}">Checkout</a></li>
+<li><a href="#">Contact</a></li>
+{% endblock %} {% block content %}
+<div class="container">
+    <div class="login">
+        <h1 class="my-5 header">Customer Login</h1>
+        <hr>
+        <div class="login_form">
+            <form class="mt-5" role="form" action="Clogin" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="Email">Email address</label>
+                            <input type="email" name="cemail" class="form-control" id="Email" placeholder="Email">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="Password1">Password</label>
+                        <input type="password" name="password" class="form-control" id="Password" placeholder="Password">
+                    </div>
+
+                </div>
+                <div class="row text-center">
+
+                    <button type="submit" class="btn btn-default btn-lg">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

@@ -41,10 +41,12 @@ class Merchant(models.Model):
 
 
 class Customer(models.Model):
-    name = models.CharField(max_length=200, blank=False)
-
+    first_name = models.CharField(max_length=200, blank=False)
+    last_name = models.CharField(max_length=200, blank=False)
+    name = models.CharField(max_length=200, blank=True, null=True)
     phone_number = models.CharField(max_length=20)
     email = models.EmailField(max_length=100, unique=True)
+    password = models.CharField(max_length=100)
     address = models.TextField(max_length=500, blank=True)
     date_joined = models.DateTimeField(auto_now_add=False, auto_now=True)
     

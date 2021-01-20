@@ -51,6 +51,7 @@ def pay(request):
     # Merchant Shop Payment
     # get session
     id = request.session.get('merchant_id', None)
+    print(id)
 
     if id is not None:
         merchant = Merchant.objects.get(seller_id=id)
@@ -76,7 +77,7 @@ def verify(request):
     print(verify_transaction(m))
 
     if mode == "order":
-        cust_id = request.session.get('Customer_id', None)
+        cust_id = request.session.get('customer_id', None)
         for cart in Cart.objects.filter(customer_id=cust_id):
             cart.cleared = True
             cart.save()
