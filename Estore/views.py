@@ -211,7 +211,7 @@ def checkout(request):
                     "descrip": "Payment for Ordered Items"}
 
         # Sorting the Payments and splitting
-        pay_shares = []
+        # pay_shares = []
         
         dispatch_delivery_charge_percent = float(env("DELIVERY_FEE")) * 0.8
         
