@@ -1,4 +1,4 @@
-# JUMGA MARKETPLACE 
+# JUMGA Ecommerce MARKETPLACE 
 ![Bootstrap-3.3.7](https://img.shields.io/badge/Bootstrap-3.3.7-blue "Bootstrap-3.3.7")
 ![Django==3.1.4](https://img.shields.io/badge/Django-3.1.4-green "Django==3.1.4")
 ![Flutterwave API V3](https://img.shields.io/badge/FlutterwaveApi-V3-orange "Flask-SQLAlchemy==2.4.4")
