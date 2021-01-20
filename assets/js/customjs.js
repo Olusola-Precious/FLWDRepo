@@ -93,7 +93,8 @@ $(function() {
         // console.log("Now Pay");
 
         $(".pay-content").load("/pay");
-    })
+    });
+
 
     $("#Mregister").submit(function(event) {
         event.preventDefault();

@@ -4,7 +4,7 @@ import os
 import json
 from django.http import HttpResponse
 from account.models import Customer, Dispatcher, Merchant
-from Estore.models import Cart
+from .models import Cart, Product
 from getenv import env
 from time import time
 
@@ -158,9 +158,10 @@ def Clear_cart(customer_id):
 def index(request):
     # id = request.session.get('merchant_id', None)
     request.session['Customer_id'] = 1
-    
 
-    return render(request,'index.html', {"categories": categories.values(), "products": products.values()})
+    products = Product.objects.all()
+
+    return render(request,'index.html', {"categories": categories.values(), "products": products})
 
 
 def product(request):
@@ -185,7 +186,7 @@ def product(request):
 
 def checkout(request):
     Customer_id = request.session.get('Customer_id', None)
-    customer_cart, Total = Get_Cart_Items(Customer_id)
+    # customer_cart, Total = Get_Cart_Items(Customer_id)
     # Clear_cart(Customer_id)
     id = request.session.get('Customer_id', None)
 
@@ -250,11 +251,17 @@ def checkout(request):
 def cart(request):
     mode = request.GET.get('mode', None)
     Customer_id = request.session.get('Customer_id', None)
-    customer_cart, Total = Get_Cart_Items(Customer_id)
+    # customer_cart, Total = Get_Cart_Items(Customer_id)
+    customer_cart = Cart.objects.filter(customer_id=Customer_id)
+    prods = [(p.product_id, p.amount) for p in customer_cart]
+    # Get total price = > sum of amount in cart * price in Product
+    cart_prices = [int(each.product_id.price) * int(each.amount)
+                   for each in customer_cart]
+
     if mode == "dropdown":
-        return render(request, 'dropdown_cart.html', {"carts": customer_cart.values(), "total_price": Total})
+        return render(request, 'dropdown_cart.html', {"carts": prods, "total_price": sum(cart_prices)})
     elif mode == "qty":
-        lent = str(len(customer_cart))
+        lent = str(customer_cart.count())
         return HttpResponse(lent)
     elif mode == "add":
         prod_id = request.GET.get('prod', None)
@@ -267,13 +274,14 @@ def cart(request):
         Rem_from_cart(Customer_id, int(prod_id))
         # return redirect('cart')
 
-
-    
-    return render(request, 'cart.html', {"carts": customer_cart.values(), "total_price": Total})
+    return render(request, 'cart.html', {"carts": prods, "total_price": sum(cart_prices)})
 
 def store(request):
     Customer_id = request.session.get('Customer_id', None)
-    customer_cart = Get_Cart_Items(Customer_id)[0]
+    # customer_cart = Get_Cart_Items(Customer_id)[0]
+    customer_cart = Cart.objects.filter(customer_id=Customer_id)
+    prods = [p.product_id for p in customer_cart]
+    merchants = Merchant.objects.filter(approved=True)
     
-    return render(request, 'store.html', {"categories": categories.values(), "products": products.values(), "Merchants": merchants.values(), "carts": customer_cart.values()})
+    return render(request, 'store.html', {"categories": categories.values(), "products": products.values(), "Merchants": merchants, "carts": prods})
 

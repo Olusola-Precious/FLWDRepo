@@ -19,17 +19,17 @@
                     <div class="unit-price">Unit Price</div>
                     <div class="subtotal">Subtotal</div>
                 </div>
-                {% for product in carts %}
+                {% for product,amt in carts %}
                 <form class="product ft-product" action="/cart/updatequantity/" method="POST">
                     <div class="ln">
                         <div class="image ft-product-image " style="">
                             <a href="#" style="">
-                                <img class="lazy image -loaded" width="60" height="60" src="{{product.main_image}}" alt="{{product.name}}" style="">
+                                <img class="lazy image -loaded" width="60" height="60" src="media/{{product.prodImgMain}}" alt="{{product.name}}" style="">
                             </a>
                         </div>
                         <div class="item" style="">
                             <div class="seller -mbs ft-product-seller " ft-data-seller="" style="">
-                                {{product.category_name}}
+                                {{product.category_id.name}}
                             </div>
                             <a href="#" class="name -mbs -inline-block ft-product-name " style="">{{product.name}}</a>
                             <div class="acts mt-5" style="">
@@ -42,18 +42,18 @@
                             </div>
                         </div>
                         <div class="quantity" style="">
-                            <label class="unit-quantity ft-product-quantity">{{product.amount}}</label>
+                            <label class="unit-quantity ft-product-quantity">{{amt}}</label>
                         </div>
                         <div class="unit-price ft-product-unit-price" style="">
                             <span class="current">
                             <span data-currency-iso="NGN">₦</span>
-                            <span dir="ltr" data-price="2400">{{product.Price}}</span>
+                            <span dir="ltr" data-price="2400">{{product.price}}</span>
                             </span>
 
                         </div>
                         <div class="subtotal ft-product-subtotal-price" style="">
                             <span data-currency-iso="NGN">₦</span>
-                            <span dir="ltr" data-price="2400">{{product.Price}}</span>
+                            <span dir="ltr" data-price="2400">{{product.price}}</span>
                         </div>
                     </div>
                 </form>

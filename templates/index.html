@@ -69,7 +69,7 @@
                                 <!-- product -->
                                 <div class="product" id="{{product.Category_id}}">
                                     <div class="product-img">
-                                        <img src="{{product.main_image}}" alt="">
+                                        <img src="media/{{product.prodImgMain}}" alt="">
                                         <!-- New & Discount tag-->
                                         <!--
                                             <div class="product-label">
@@ -88,7 +88,7 @@
                                     <div class="product-body">
                                         <!--<p class="product-category">Category</p>-->
                                         <h3 class="product-name"><a href="#">{{product.name}}</a></h3>
-                                        <h4 class="product-price">${{product.Price}} <del class="product-old-price">{{product.discount}}</del></h4>
+                                        <h4 class="product-price">${{product.price}} <del class="product-old-price">{{product.discount}}</del></h4>
                                         <div class="product-rating">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -191,16 +191,16 @@
 
                 <div class="products-widget-slick" data-nav="#slick-nav-{{forloop.counter}}">
                     <div>
-                        {% for product in products %} {% if product.Category_id == category.id %}
+                        {% for product in products %} {% if product.category_id.id == category.id %}
                         <!-- product widget -->
                         <div class="product-widget">
                             <div class="product-img">
-                                <img src="{{product.main_image}}" alt="">
+                                <img src="media/{{product.prodImgMain}}" alt="">
                             </div>
                             <div class="product-body">
                                 <p class="product-category">{{category.name}}</p>
                                 <h3 class="product-name"><a href="#">{{product.name}}</a></h3>
-                                <h4 class="product-price">{{product.Price}} <del class="product-old-price">{{product.discount}}</del></h4>
+                                <h4 class="product-price">{{product.price}} <del class="product-old-price">{{product.discount}}</del></h4>
                             </div>
                         </div>
                         <!-- /product widget -->
@@ -218,7 +218,7 @@
                             <div class="product-body">
                                 <p class="product-category">{{category.name}}</p>
                                 <h3 class="product-name"><a href="#">{{product.name}}</a></h3>
-                                <h4 class="product-price">{{product.Price}} <del class="product-old-price">{{product.discount}}</del></h4>
+                                <h4 class="product-price">{{product.price}} <del class="product-old-price">{{product.discount}}</del></h4>
                             </div>
                         </div>
                         <!-- /product widget -->

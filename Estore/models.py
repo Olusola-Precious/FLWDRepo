@@ -48,12 +48,12 @@ class Product(models.Model):
     category_id = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, null=False, blank=False)
     Description = models.TextField(max_length=800, null=True)
-    prodImgMain = models.ImageField(upload_to='productPics', default='assets/img/prodPlaceholder.jpg', blank=False)
-    prodImg2 = models.ImageField(upload_to='productPics', default='assets/img/prodPlaceholder.jpg', blank=True, null=True)
-    prodImg3 = models.ImageField(upload_to='productPics',
+    prodImgMain = models.ImageField(upload_to='media/productPics', default='assets/img/prodPlaceholder.jpg', blank=False)
+    prodImg2 = models.ImageField(upload_to='media/productPics', default='assets/img/prodPlaceholder.jpg', blank=True, null=True)
+    prodImg3 = models.ImageField(upload_to='media/productPics',
                                  default='assets/img/prodPlaceholder.jpg', blank=True, null=True)
     prodImg4 = models.ImageField(
-        upload_to='productPics', default='assets/img/prodPlaceholder.jpg', blank=True, null=True)
+        upload_to='media/productPics', default='assets/img/prodPlaceholder.jpg', blank=True, null=True)
     discount = models.CharField(max_length=12, null=True)
     price = models.CharField(max_length=12, null=False, blank=False)
     date_added = models.DateTimeField(auto_now_add=False, auto_now=True)

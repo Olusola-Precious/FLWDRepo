@@ -1,13 +1,13 @@
 {% load static %}
 <div class="cart-list" id="cart-list">
-    {% for each in carts %}
+    {% for each,amt in carts %}
     <div class="product-widget">
         <div class="product-img">
-            <img src="/{{each.main_image}}" alt="">
+            <img src="media/{{each.prodImgMain}}" alt="">
         </div>
         <div class="product-body">
             <h3 class="product-name"><a href="#">{{each.name}}</a></h3>
-            <h4 class="product-price"><span class="qty">{{each.amount}}x</span>${{each.Price}}</h4>
+            <h4 class="product-price"><span class="qty">{{amt}}x</span>${{each.price}}</h4>
         </div>
         <button class="delete"><i class="fa fa-close"></i></button>
     </div>

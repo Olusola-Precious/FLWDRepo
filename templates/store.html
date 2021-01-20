@@ -78,12 +78,12 @@
                     {% for cart in carts %}
                     <div class="product-widget">
                         <div class="product-img">
-                            <img src="{{cart.main_image}}" alt="">
+                            <img src="media/{{cart.prodImgMain}}" alt="">
                         </div>
                         <div class="product-body">
-                            <p class="product-category">{{cart.category_name}}</p>
+                            <p class="product-category">{{cart.category_id.name}}</p>
                             <h3 class="product-name"><a href="#">{{cart.name}}</a></h3>
-                            <h4 class="product-price">${{cart.Price}} <del class="product-old-price">${{cart.discount}}</del></h4>
+                            <h4 class="product-price">${{cart.price}} <del class="product-old-price">${{cart.discount}}</del></h4>
                         </div>
                     </div>
                     {% endfor %}
